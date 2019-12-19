@@ -44,21 +44,22 @@ export default class TabNav extends Component {
     }
 
     render(){
-        return <View style={style.tab}>
-            <View style={style.tabContent}>
-                {
-                    this.state.menuArray.map((item,index)=>{
-                        return <TouchableOpacity  style={style.btn} key={'menu'+index} onPress={()=>{
-                            this._onPress(item);
-                        }}  >
-                            <Image source={item.icon}></Image>
-                            <Text style={style.text}>{item.name}</Text>
-                        </TouchableOpacity>;
-                    })
-                }
-            </View>
-            {/* 兼容iphoneX */}
-            <View style={style.sapce}>
+        return <View style={{width:width,height:iphoneXHeight(74)}}>
+            <View style={style.tab}>
+                <View style={style.tabContent}>
+                    {
+                        this.state.menuArray.map((item,index)=>{
+                            return <TouchableOpacity  style={style.btn} key={'menu'+index} onPress={()=>{
+                                this._onPress(item);
+                            }}  >
+                                <Image source={item.icon}></Image>
+                                <Text style={style.text}>{item.name}</Text>
+                            </TouchableOpacity>;
+                        })
+                    }
+                </View>
+                {/* 兼容iphoneX */}
+                <View style={style.sapce}></View>
             </View>
             {
                 this.props.isPopoverPickerShow ? 
@@ -70,7 +71,7 @@ export default class TabNav extends Component {
                                         style={[style.popoverPickerBtn,{borderBottomWidth:index === this.state.moreArray.length-1?0:1}]} activeOpacity={1} 
                                         key={'more'+index}
                                         onPress={()=>{
-                                            this._onPress(item);
+                                            this._onPress(item); 
                                         }}
                                     >
                                         <Image style={style.popoverPickerBtnIcon} source={item.icon}></Image>
@@ -80,9 +81,7 @@ export default class TabNav extends Component {
                             }
                         </View>
                         <Image style={style.triangle} source={require('../assets/tabbar/position_bubble_shadow.png')}></Image>
-                    </View>:null
-            }
-   
+                    </View>:null}
         </View>;
     }
 
@@ -126,7 +125,8 @@ const style = StyleSheet.create({
         bottom:iphoneXHeight(95),
         backgroundColor:'#fff',
         borderRadius:6,
-        justifyContent:'center'
+        justifyContent:'center',
+        zIndex:10000
     },
     triangle:{
         position:'absolute',
